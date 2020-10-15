@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0j4m54y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
+  <bpmn:process id="customer-onboarding" isExecutable="true">
+    <bpmn:startEvent id="StartEventCustomerOnboarding" name="New customer onboarding requested">
+      <bpmn:outgoing>Flow_0mmiguk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="GatewayCanBeProcessesAutomatically" name="Can onboarding be processed automatically?">
+      <bpmn:incoming>Flow_1r5b7fp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0emtlr2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07wd4f9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:parallelGateway id="Gateway_003w25e">
+      <bpmn:incoming>Flow_07wd4f9</bpmn:incoming>
+      <bpmn:outgoing>Flow_01vew9b</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0fha96z</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_0gzp0jc">
+      <bpmn:incoming>Flow_1auhcko</bpmn:incoming>
+      <bpmn:incoming>Flow_17h6hh3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tfwrhn</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_10oeyrf" name="New customer&#10;onboarded manually">
+      <bpmn:incoming>Flow_11dxwyq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEventCustomerOnboarding" name="New customer&#10;onboarded automatically">
+      <bpmn:incoming>Flow_1ecdfrv</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="TaskAddToCRM" name="Add customer&#10;to CRM">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="addCustomerToCrm" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_01vew9b</bpmn:incoming>
+      <bpmn:outgoing>Flow_1auhcko</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="TaskAddToBilling" name="Add customer&#10;to billing system">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="addCustomerToBilling" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fha96z</bpmn:incoming>
+      <bpmn:outgoing>Flow_17h6hh3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="TaskProvisionSIM" name="Provision&#10;SIM card">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="provisionSIM" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0tfwrhn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kibkkx</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_RegisterSIM" name="Register SIM&#10;in network">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="registerSIM" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1kibkkx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0t3j6d0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="TaskSendCustomerDocuments" name="Send customer documents">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="SendDocuments" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0t3j6d0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ecdfrv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0mmiguk" sourceRef="StartEventCustomerOnboarding" targetRef="Activity_06r19b0" />
+    <bpmn:sequenceFlow id="Flow_1r5b7fp" sourceRef="TaskValidateCustomerApplication" targetRef="GatewayCanBeProcessesAutomatically" />
+    <bpmn:sequenceFlow id="Flow_0emtlr2" name="no" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="TaskProcessApplicationManually">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=automaticProcessing=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_07wd4f9" name="yes" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="Gateway_003w25e">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=automaticProcessing</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_11dxwyq" sourceRef="TaskProcessApplicationManually" targetRef="Event_10oeyrf" />
+    <bpmn:sequenceFlow id="Flow_01vew9b" sourceRef="Gateway_003w25e" targetRef="TaskAddToCRM" />
+    <bpmn:sequenceFlow id="Flow_0fha96z" sourceRef="Gateway_003w25e" targetRef="TaskAddToBilling" />
+    <bpmn:sequenceFlow id="Flow_1auhcko" sourceRef="TaskAddToCRM" targetRef="Gateway_0gzp0jc" />
+    <bpmn:sequenceFlow id="Flow_17h6hh3" sourceRef="TaskAddToBilling" targetRef="Gateway_0gzp0jc" />
+    <bpmn:sequenceFlow id="Flow_0tfwrhn" sourceRef="Gateway_0gzp0jc" targetRef="TaskProvisionSIM" />
+    <bpmn:sequenceFlow id="Flow_1ecdfrv" sourceRef="TaskSendCustomerDocuments" targetRef="EndEventCustomerOnboarding" />
+    <bpmn:sequenceFlow id="Flow_1ezk03a" sourceRef="Activity_06r19b0" targetRef="TaskValidateCustomerApplication" />
+    <bpmn:sequenceFlow id="Flow_1kibkkx" sourceRef="TaskProvisionSIM" targetRef="Task_RegisterSIM" />
+    <bpmn:sequenceFlow id="Flow_0t3j6d0" sourceRef="Task_RegisterSIM" targetRef="TaskSendCustomerDocuments" />
+    <bpmn:callActivity id="Activity_06r19b0" name="Score customer">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="customer-scoring" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0mmiguk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ezk03a</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:serviceTask id="TaskProcessApplicationManually" name="Process new customer application">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="humanTask" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0emtlr2</bpmn:incoming>
+      <bpmn:outgoing>Flow_11dxwyq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="TaskValidateCustomerApplication" name="Validate customer application">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="DMN" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="decisionRef" value="customer-application-validation" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ezk03a</bpmn:incoming>
+      <bpmn:outgoing>Flow_1r5b7fp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:textAnnotation id="TextAnnotation_0kycgd8">
+      <bpmn:text>User Task</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_11voexb" sourceRef="TaskProcessApplicationManually" targetRef="TextAnnotation_0kycgd8" />
+    <bpmn:textAnnotation id="TextAnnotation_1kbeixf">
+      <bpmn:text>Decision Task</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_15yoe4f" sourceRef="TaskValidateCustomerApplication" targetRef="TextAnnotation_1kbeixf" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="customer-onboarding">
+      <bpmndi:BPMNEdge id="Flow_0t3j6d0_di" bpmnElement="Flow_0t3j6d0">
+        <di:waypoint x="1217" y="200" />
+        <di:waypoint x="1247" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kibkkx_di" bpmnElement="Flow_1kibkkx">
+        <di:waypoint x="1077" y="200" />
+        <di:waypoint x="1117" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ezk03a_di" bpmnElement="Flow_1ezk03a">
+        <di:waypoint x="357" y="200" />
+        <di:waypoint x="397" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ecdfrv_di" bpmnElement="Flow_1ecdfrv">
+        <di:waypoint x="1347" y="200" />
+        <di:waypoint x="1379" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tfwrhn_di" bpmnElement="Flow_0tfwrhn">
+        <di:waypoint x="942" y="200" />
+        <di:waypoint x="977" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17h6hh3_di" bpmnElement="Flow_17h6hh3">
+        <di:waypoint x="857" y="313" />
+        <di:waypoint x="917" y="313" />
+        <di:waypoint x="917" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1auhcko_di" bpmnElement="Flow_1auhcko">
+        <di:waypoint x="857" y="200" />
+        <di:waypoint x="892" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fha96z_di" bpmnElement="Flow_0fha96z">
+        <di:waypoint x="697" y="225" />
+        <di:waypoint x="697" y="313" />
+        <di:waypoint x="757" y="313" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01vew9b_di" bpmnElement="Flow_01vew9b">
+        <di:waypoint x="722" y="200" />
+        <di:waypoint x="757" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11dxwyq_di" bpmnElement="Flow_11dxwyq">
+        <di:waypoint x="627" y="413" />
+        <di:waypoint x="669" y="413" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07wd4f9_di" bpmnElement="Flow_07wd4f9">
+        <di:waypoint x="602" y="200" />
+        <di:waypoint x="672" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="628" y="182" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0emtlr2_di" bpmnElement="Flow_0emtlr2">
+        <di:waypoint x="577" y="225" />
+        <di:waypoint x="577" y="373" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="586" y="230" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r5b7fp_di" bpmnElement="Flow_1r5b7fp">
+        <di:waypoint x="497" y="200" />
+        <di:waypoint x="552" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mmiguk_di" bpmnElement="Flow_0mmiguk">
+        <di:waypoint x="215" y="200" />
+        <di:waypoint x="257" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0g014he_di" bpmnElement="StartEventCustomerOnboarding">
+        <dc:Bounds x="179" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="161" y="225" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lbjsi1_di" bpmnElement="GatewayCanBeProcessesAutomatically" isMarkerVisible="true">
+        <dc:Bounds x="552" y="175" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="538" y="138" width="79" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_003w25e_di" bpmnElement="Gateway_003w25e">
+        <dc:Bounds x="672" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0gzp0jc_di" bpmnElement="Gateway_0gzp0jc">
+        <dc:Bounds x="892" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10oeyrf_di" bpmnElement="Event_10oeyrf">
+        <dc:Bounds x="669" y="395" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="652" y="438" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jilnd0_di" bpmnElement="EndEventCustomerOnboarding">
+        <dc:Bounds x="1379" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1361" y="225" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ie88u3_di" bpmnElement="TaskAddToCRM">
+        <dc:Bounds x="757" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1w4y3mv_di" bpmnElement="TaskAddToBilling">
+        <dc:Bounds x="757" y="273" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oc63h6_di" bpmnElement="TaskProvisionSIM">
+        <dc:Bounds x="977" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00jhydh_di" bpmnElement="Task_RegisterSIM">
+        <dc:Bounds x="1117" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02w78io_di" bpmnElement="TaskSendCustomerDocuments">
+        <dc:Bounds x="1247" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16twdxf_di" bpmnElement="Activity_06r19b0">
+        <dc:Bounds x="257" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ysrfd6_di" bpmnElement="TaskProcessApplicationManually">
+        <dc:Bounds x="527" y="373" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pe5vbe_di" bpmnElement="TaskValidateCustomerApplication">
+        <dc:Bounds x="397" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0kycgd8_di" bpmnElement="TextAnnotation_0kycgd8">
+        <dc:Bounds x="550" y="500" width="100" height="26" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1kbeixf_di" bpmnElement="TextAnnotation_1kbeixf">
+        <dc:Bounds x="410" y="80" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_11voexb_di" bpmnElement="Association_11voexb">
+        <di:waypoint x="589" y="453" />
+        <di:waypoint x="597" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_15yoe4f_di" bpmnElement="Association_15yoe4f">
+        <di:waypoint x="450" y="160" />
+        <di:waypoint x="458" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
