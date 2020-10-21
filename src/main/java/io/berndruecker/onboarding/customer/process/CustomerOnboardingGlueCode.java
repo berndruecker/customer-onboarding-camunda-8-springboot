@@ -18,9 +18,10 @@ public class CustomerOnboardingGlueCode {
 
     Logger logger = LoggerFactory.getLogger(CustomerOnboardingGlueCode.class);
 
-    // This should be of course injected and depends on the environment.
-    // Hard coded for simplicity here
+    // TODO: This should be of course injected and depends on the environment.
+    // Hard coded for now
     public static String ENDPOINT = "http://localhost:8080/crm/customer";
+    public static String ENDPOINT_BILLING = "http://localhost:8080/billing/customer";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,4 +38,15 @@ public class CustomerOnboardingGlueCode {
                 .send().join();
     }
 
+    @ZeebeWorker(type = "addCustomerToBilling")
+    public void addCustomerToBillingViaREST(final JobClient client, final ActivatedJob job) throws IOException {
+        logger.info("Add customer to Billing via REST [" + job + "]");
+
+        // call rest API
+        String request = "todo";
+        restTemplate.put(ENDPOINT_BILLING, request);
+
+        client.newCompleteCommand(job.getKey()) //
+                .send().join();
+    }
 }

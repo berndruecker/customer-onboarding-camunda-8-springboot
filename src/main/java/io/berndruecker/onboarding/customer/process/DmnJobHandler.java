@@ -38,7 +38,7 @@ public class DmnJobHandler {
     @Autowired
     private DmnEngine dmnEngine;
 
-    @Value("classpath:*.dmn")
+    @Value("classpath*:*.dmn")
     private Resource[] resources;
     private final Map<String, DmnDecision> decisionsById = new HashMap<>();
 

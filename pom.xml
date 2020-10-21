@@ -38,6 +38,11 @@
 			<artifactId>camunda-engine-dmn</artifactId>
 			<version>${dmn.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>io.zeebe</groupId>
+			<artifactId>zeebe-cluster-testbench-cloud-client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 
 		<dependency>

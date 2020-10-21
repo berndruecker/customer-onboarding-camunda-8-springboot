@@ -14,6 +14,6 @@ public class TestingEnabledJobHandlerDelegate implements JobHandler {
 
     @Override
     public void handle(JobClient client, ActivatedJob job) throws Exception {
-        ZeebeTestRecorder.polledJobs.add( new RecordedJob(client, job, delegate) );
+        ZeebeTestRecorder.add( new RecordedJob(client, job, delegate) );
     }
 }

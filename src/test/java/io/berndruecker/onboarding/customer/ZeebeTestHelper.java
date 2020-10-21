@@ -3,6 +3,7 @@ package io.berndruecker.onboarding.customer;
 import io.berndruecker.zeebe.spring.testing.prototype.RecordedJob;
 import io.berndruecker.zeebe.spring.testing.prototype.ZeebeTestRecorder;
 import io.zeebe.client.ZeebeClient;
+import io.zeebe.client.api.response.WorkflowInstanceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,25 +22,25 @@ public class ZeebeTestHelper {
         ZeebeTestRecorder.reset();
     }
 
-    public RecordedJob assertAndExecuteJob(String taskType) throws Exception {
-        Optional<RecordedJob> recordedJob = ZeebeTestRecorder.getNextPolledJobsForTaskType(taskType);
+    public RecordedJob assertAndExecuteJob(WorkflowInstanceEvent workflowInstance, String taskType) throws Exception {
+        // TODO: WAIT FOR AT LEAST ONE JOB TO ARRIVE IN A CERTAIN TIMEFRAME
+        Optional<RecordedJob> recordedJob = ZeebeTestRecorder.waiForJob(workflowInstance, taskType);
+
         assertTrue(recordedJob.isPresent(), "Job for taskType '" + taskType + "' is present");
         RecordedJob job = recordedJob.get();
 
         // TODO: Does Hand over that job client lead to problems?
         job.getDelegate().handle(job.getClient(), job.getJob());
 
-        ZeebeTestRecorder.polledJobs.remove(job);
+        ZeebeTestRecorder.remove(job);
         return job;
     }
 
-    public void assertProcessInstanceStarted() {
-        assertTrue( ZeebeTestRecorder.startedWorkflowInstances.size() > 0 );
+    public WorkflowInstanceEvent assertProcessInstanceStarted() {
+        ZeebeTestRecorder.waitForOngoingWork();
+
+        assertTrue( ZeebeTestRecorder.startedWorkflowInstances().size() > 0 );
+        return ZeebeTestRecorder.startedWorkflowInstances().stream().findFirst().get();
     }
 
-    public void waitForOngoingWork() {
-        System.out.println("WAITING FOR WORK");
-        ZeebeTestRecorder.waitForOngoingWork();
-        System.out.println("DONE WAITING FOR WORK");
-    }
 }
