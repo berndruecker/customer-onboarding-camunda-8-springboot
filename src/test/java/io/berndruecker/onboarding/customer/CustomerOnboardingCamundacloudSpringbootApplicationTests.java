@@ -85,7 +85,7 @@ class CustomerOnboardingCamundacloudSpringbootApplicationTests {
 
 	@Test
 	void testHappyPath() throws Exception {
-		// retrieving an incoming REST call tha will kick off a new process instance
+		// receiving an incoming REST call that will kick off a new process instance
 		customerOnboardingRest.onboardCustomer();
 
 		// assert that a process was started
@@ -94,11 +94,11 @@ class CustomerOnboardingCamundacloudSpringbootApplicationTests {
 		// Assert that the child process sends a message via AMQP now
 		// LIMIT: I cannot know the child process instance!
 		// LIMIT: I cannot test the timer
-		RecordedJob job = test.assertAndExecuteJob(null,"SendScoringRequest");
+		RecordedJob job = test.assertAndExecuteJob(null, "SendScoringRequest");
 		assertEquals("TaskSendScoringRequest", job.getJob().getElementId());
 		assertEquals("customer-scoring", job.getJob().getBpmnProcessId());
 
-		// verify that AMQP received in RabbitMock
+		// verify that the AMQP request has been received in RabbitMock
 		Object messageContent = null;
 		{
 			ArgumentCaptor<Message> argument = ArgumentCaptor.forClass(Message.class);
@@ -110,10 +110,10 @@ class CustomerOnboardingCamundacloudSpringbootApplicationTests {
 		}
 
 		// Simulate the AMQP response
-		scoringGlueCode.messageReceived((String)messageContent);
+		scoringGlueCode.messageReceived((String) messageContent);
 
 		// DMN Decision
-		job = test.assertAndExecuteJob(workflowInstance,"DMN");
+		job = test.assertAndExecuteJob(workflowInstance, "DMN");
 
 		// assert that the decision has passed and resulted in "automaticProcessing"
 		// LIMIT: Can't verify this!
