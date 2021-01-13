@@ -25,7 +25,7 @@ public class CustomerOnboardingRestController {
 
   @PutMapping("/customer")
   public ResponseEntity<CustomerOnboardingResponse> onboardCustomer(ServerWebExchange exchange) {
-    CustomerOnboardingResponse response =onboardCustomer();
+    CustomerOnboardingResponse response = onboardCustomer();
     // return ResponseEntity.status(HttpStatus.OK).body(response);
     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
@@ -43,7 +43,7 @@ public class CustomerOnboardingRestController {
 
     // Start new instance of the ticket-booking workflow
     WorkflowInstanceEvent future = client.newCreateInstanceCommand() //
-        .bpmnProcessId("customer-onboarding") //
+        .bpmnProcessId("customer-onboarding-simple") //
         .latestVersion() //
         .variables(variables) //
         .send().join();

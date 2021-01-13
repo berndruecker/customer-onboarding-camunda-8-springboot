@@ -1,10 +1,43 @@
-# customer-onboarding-camundacloud-springboot-amqp
+# Customer Onboarding Process
 
-Simple example for application processing workflow using Camunda Cloud, Java, Spring Boot, REST and AMQP
+*Process solution example for customer onboarding as used in the OReilly book [Practical Process Automation](https://processautomationbook.com/).*
 
-![Customer Onboarding](docs/customer-onboarding.png)
+This following stack is used:
 
-The AMQP details are extracted in an own subprocess:
+* Camunda Cloud
+* Java
+* Spring Boot
+
+
+# Simple Process
+
+The simple process is meant to get started with process automation, workflow engines and BPMN:
+
+![Customer Onboarding](docs/customer-onboarding-simple.png)
+
+The process model contains three tasks:
+
+* A service task that executes Java Code to score customers
+* A user task so that humans can approve customer orders (or not)
+* A service task that executes glue code to call the REST API of a CRM system
+
+The process solution is a Maven project and contains:
+
+* The onboarding process model as BPMN
+* Source code to provide the REST API for clients (using Spring Boot)
+* Java code to do the customer scoring
+* Glue code to implement the REST call to the CRM system
+* Form for the user to approve customer orders
+
+
+# Extended Process
+
+The extended process model adds some more tasks in the process:
+
+![Customer Onboarding](docs/customer-onboarding-extended.png)
+
+* A DMN decision task that decides, if a customer order can be automatically processed or not (replacing the manual approval above)
+* Scoring the customer will now be done via an external scoring service, that has an AMQP (messaging) API. The technical details around communication via AMQP are extracted in a seperate subprocess:
 
 ![Scoring](docs/customer-scoring.png)
 
