@@ -9,11 +9,11 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableZeebeClient
-@ZeebeDeployment(classPathResources = { "customer-onboarding-simple.bpmn", "customer-onboarding-extended.bpmn", "customer-scoring.bpmn" })
-public class CustomerOnboardingCamundacloudSpringbootApplication {
+@ZeebeDeployment(classPathResources = {"customer-onboarding.bpmn", "customer-onboarding-extended.bpmn", "customer-scoring.bpmn" })
+public class CustomerOnboardingSpringbootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerOnboardingCamundacloudSpringbootApplication.class, args);
+		SpringApplication.run(CustomerOnboardingSpringbootApplication.class, args);
 	}
 
 	@Bean

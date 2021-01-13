@@ -1,6 +1,5 @@
 package io.berndruecker.onboarding.customer.process;
 
-import io.berndruecker.onboarding.customer.ProcessConstants;
 import io.zeebe.client.api.response.ActivatedJob;
 import io.zeebe.client.api.worker.JobClient;
 import io.zeebe.spring.client.annotation.ZeebeWorker;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class CustomerOnboardingGlueCode {

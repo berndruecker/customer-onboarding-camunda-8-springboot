@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1gdliox" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.11.0">
-  <bpmn:process id="customer-onboarding-simple" name="Customer Onboarding (Simple)" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1gdliox" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.11.0">
+  <bpmn:process id="customer-onboarding" name="Customer Onboarding (Simple)" isExecutable="true">
     <bpmn:startEvent id="StartEventCustomerOnboardingSimple" name="Customer order received">
       <bpmn:outgoing>Flow_0ysyrkd</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0ysyrkd" sourceRef="StartEventCustomerOnboardingSimple" targetRef="TaskScoreCustomer" />
     <bpmn:serviceTask id="TaskScoreCustomer" name="Score customer">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="scoreCustomer" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ysyrkd</bpmn:incoming>
       <bpmn:outgoing>Flow_08i3f47</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_08i3f47" sourceRef="TaskScoreCustomer" targetRef="TaskApproveCustomerOrder" />
     <bpmn:exclusiveGateway id="GatewayOrderAccepted" name="Oder accepted?">
       <bpmn:incoming>Flow_0ibd51o</bpmn:incoming>
-      <bpmn:outgoing>Flow_0zlu1eg</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0amyhlw</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlowOrderAcceptedNo</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlowOrderAcceptedYes</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0ibd51o" sourceRef="TaskApproveCustomerOrder" targetRef="GatewayOrderAccepted" />
     <bpmn:endEvent id="EndEventRejected" name="Customer order rejected">
-      <bpmn:incoming>Flow_0zlu1eg</bpmn:incoming>
+      <bpmn:incoming>SequenceFlowOrderAcceptedNo</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0zlu1eg" name="no" sourceRef="GatewayOrderAccepted" targetRef="EndEventRejected" />
-    <bpmn:sequenceFlow id="Flow_0amyhlw" name="yes" sourceRef="GatewayOrderAccepted" targetRef="TaskCreateCustomerInCrm" />
+    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedNo" name="no" sourceRef="GatewayOrderAccepted" targetRef="EndEventRejected">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing == false)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedYes" name="yes" sourceRef="GatewayOrderAccepted" targetRef="TaskCreateCustomerInCrm">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing == true)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEventProcessed" name="Customer order processed">
       <bpmn:incoming>Flow_0y7x6do</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0y7x6do" sourceRef="TaskCreateCustomerInCrm" targetRef="EndEventProcessed" />
-    <bpmn:serviceTask id="TaskCreateCustomerInCrm" name="Create customer order in CRM system">
-      <bpmn:incoming>Flow_0amyhlw</bpmn:incoming>
+    <bpmn:serviceTask id="TaskCreateCustomerInCrm" name="Create&#10;customer order in CRM system">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="addCustomerToCrm" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlowOrderAcceptedYes</bpmn:incoming>
       <bpmn:outgoing>Flow_0y7x6do</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="TaskApproveCustomerOrder" name="Approve customer order">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="userTask" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_08i3f47</bpmn:incoming>
       <bpmn:outgoing>Flow_0ibd51o</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -39,22 +52,19 @@
     <bpmn:association id="Association_1ofd15y" sourceRef="TaskApproveCustomerOrder" targetRef="TextAnnotation_0cmam98" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="customer-onboarding-simple">
-      <bpmndi:BPMNShape id="TextAnnotation_0cmam98_di" bpmnElement="TextAnnotation_0cmam98">
-        <dc:Bounds x="500" y="110" width="100" height="30" />
-      </bpmndi:BPMNShape>
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="customer-onboarding">
       <bpmndi:BPMNEdge id="Flow_0y7x6do_di" bpmnElement="Flow_0y7x6do">
         <di:waypoint x="810" y="207" />
         <di:waypoint x="882" y="207" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0amyhlw_di" bpmnElement="Flow_0amyhlw">
+      <bpmndi:BPMNEdge id="Flow_0amyhlw_di" bpmnElement="SequenceFlowOrderAcceptedYes">
         <di:waypoint x="645" y="207" />
         <di:waypoint x="710" y="207" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="669" y="189" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0zlu1eg_di" bpmnElement="Flow_0zlu1eg">
+      <bpmndi:BPMNEdge id="Flow_0zlu1eg_di" bpmnElement="SequenceFlowOrderAcceptedNo">
         <di:waypoint x="620" y="232" />
         <di:waypoint x="620" y="302" />
         <bpmndi:BPMNLabel>
@@ -105,6 +115,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0semsv0_di" bpmnElement="TaskApproveCustomerOrder">
         <dc:Bounds x="430" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0cmam98_di" bpmnElement="TextAnnotation_0cmam98">
+        <dc:Bounds x="500" y="110" width="100" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1ofd15y_di" bpmnElement="Association_1ofd15y">
         <di:waypoint x="514" y="167" />

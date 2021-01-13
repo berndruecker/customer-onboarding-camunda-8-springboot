@@ -25,30 +25,29 @@ public class CustomerOnboardingRestController {
 
   @PutMapping("/customer")
   public ResponseEntity<CustomerOnboardingResponse> onboardCustomer(ServerWebExchange exchange) {
-    CustomerOnboardingResponse response = onboardCustomer();
+    // TODO: Build variant with synchronous facade
+    //CustomerOnboardingResponse response = onboardCustomer();
     // return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    onboardCustomer();
     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
 
-  public CustomerOnboardingResponse onboardCustomer() {
-    CustomerOnboardingResponse response = new CustomerOnboardingResponse();
-
+//  public CustomerOnboardingResponse onboardCustomer() {
+//    CustomerOnboardingResponse response = new CustomerOnboardingResponse();
 //    String scoringRequestId = UUID.randomUUID().toString();
 
+  public void onboardCustomer() {
     HashMap<String, Object> variables = new HashMap<String, Object>();
-//    variables.put(ProcessConstants.VAR_SCORING_REQUEST_ID, scoringRequestId);
-//    variables.put(ProcessConstants.VAR_SCORING_RETRY_COUNT, 0l);
     variables.put("automaticProcessing", true);
     variables.put("someInput", "yeah");
 
-    // Start new instance of the ticket-booking workflow
-    WorkflowInstanceEvent future = client.newCreateInstanceCommand() //
-        .bpmnProcessId("customer-onboarding-simple") //
+    //    WorkflowInstanceEvent future = client.newCreateInstanceCommand() //
+    client.newCreateInstanceCommand() //
+        .bpmnProcessId("customer-onboarding") //
         .latestVersion() //
         .variables(variables) //
         .send().join();
-
-    return response;
   }
 
   public static class CustomerOnboardingResponse {

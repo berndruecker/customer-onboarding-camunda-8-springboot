@@ -31,6 +31,12 @@ public class TestingEnabledZeebeClientBuilderDelegate implements ZeebeClientBuil
     }
 
     @Override
+    public ZeebeClientBuilder gatewayAddress(String gatewayAddress) {
+        delegate.gatewayAddress(gatewayAddress);
+        return this;
+    }
+
+    @Override
     public ZeebeClientBuilder defaultJobWorkerMaxJobsActive(int maxJobsActive) {
         delegate.defaultJobWorkerMaxJobsActive(maxJobsActive);
         return this;

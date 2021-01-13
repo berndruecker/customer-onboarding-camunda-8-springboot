@@ -42,7 +42,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @SpringBootTest(properties = {
 		"restProxyHost=api.example.org", //
 		"restProxyPort=80" })
-class CustomerOnboardingCamundacloudSpringbootApplicationTests {
+class CustomerOnboardingTests {
 
 	@Autowired
 	private CustomerOnboardingRestController customerOnboardingRest;

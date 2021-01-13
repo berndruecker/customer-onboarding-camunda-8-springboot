@@ -2,7 +2,6 @@ package io.berndruecker.onboarding.customer.process;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import io.berndruecker.onboarding.customer.ProcessConstants;
 import io.zeebe.client.ZeebeClient;
 import io.zeebe.client.api.response.ActivatedJob;
 import io.zeebe.client.api.worker.JobClient;
