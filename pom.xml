@@ -8,10 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>io.berndruecker</groupId>
 	<artifactId>customer-onboarding-camundacloud-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>customer-onboarding-camundacloud-springboot</name>
+
 	<description>Customer Onboarding Example Using Camunda Cloud and Spring Boot</description>
 
 	<properties>
@@ -27,11 +28,7 @@
 		<dependency>
 		    <groupId>io.zeebe.spring</groupId>
 		    <artifactId>spring-zeebe-starter</artifactId>
-		    <version>0.25.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
+		    <version>0.26.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.camunda.bpm.dmn</groupId>

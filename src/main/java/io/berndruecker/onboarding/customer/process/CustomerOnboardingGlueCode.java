@@ -16,9 +16,8 @@ public class CustomerOnboardingGlueCode {
 
     Logger logger = LoggerFactory.getLogger(CustomerOnboardingGlueCode.class);
 
-    // TODO: This should be of course injected and depends on the environment.
-    // Hard coded for now
-    public static String ENDPOINT = "http://localhost:8080/crm/customer";
+    // TODO: This should be of course injected and depends on the environment. Hard coded for now
+    public static String ENDPOINT_CRM = "http://localhost:8080/crm/customer";
     public static String ENDPOINT_BILLING = "http://localhost:8080/billing/customer";
 
     @Autowired
@@ -30,7 +29,7 @@ public class CustomerOnboardingGlueCode {
 
         // call rest API
         String request = "todo";
-        restTemplate.put(ENDPOINT, request);
+        restTemplate.put(ENDPOINT_CRM, request);
 
         client.newCompleteCommand(job.getKey()) //
                 .send().join();

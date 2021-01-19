@@ -1,4 +1,4 @@
-package io.berndruecker.onboarding.customer.process;
+package io.berndruecker.onboarding.customer.dmn;
 
 import org.camunda.bpm.dmn.engine.DmnEngine;
 import org.camunda.bpm.dmn.engine.DmnEngineConfiguration;

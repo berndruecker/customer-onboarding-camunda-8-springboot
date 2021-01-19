@@ -1,19 +1,12 @@
-package io.berndruecker.onboarding.customer.process;
+package io.berndruecker.onboarding.customer.dmn;
 
 import io.zeebe.client.api.response.ActivatedJob;
 import io.zeebe.client.api.worker.JobClient;
-import io.zeebe.client.api.worker.JobHandler;
 import io.zeebe.spring.client.annotation.ZeebeWorker;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import org.camunda.bpm.dmn.engine.DmnDecision;
 import org.camunda.bpm.dmn.engine.DmnDecisionResult;

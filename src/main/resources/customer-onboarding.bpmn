@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1gdliox" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1gdliox" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.11.0">
   <bpmn:process id="customer-onboarding" name="Customer Onboarding (Simple)" isExecutable="true">
     <bpmn:startEvent id="StartEventCustomerOnboardingSimple" name="Customer order received">
       <bpmn:outgoing>Flow_0ysyrkd</bpmn:outgoing>
@@ -23,10 +23,10 @@
       <bpmn:incoming>SequenceFlowOrderAcceptedNo</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedNo" name="no" sourceRef="GatewayOrderAccepted" targetRef="EndEventRejected">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing == false)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing = false)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedYes" name="yes" sourceRef="GatewayOrderAccepted" targetRef="TaskCreateCustomerInCrm">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing == true)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing = true)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEventProcessed" name="Customer order processed">
       <bpmn:incoming>Flow_0y7x6do</bpmn:incoming>

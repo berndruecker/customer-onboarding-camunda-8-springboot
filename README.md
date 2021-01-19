@@ -9,8 +9,6 @@ This following stack is used:
 * Spring Boot
 
 
-# Simple Process
-
 The simple process is meant to get started with process automation, workflow engines and BPMN:
 
 ![Customer Onboarding](docs/customer-onboarding-simple.png)
@@ -32,12 +30,4 @@ The process solution is a Maven project and contains:
 
 # Extended Process
 
-The extended process model adds some more tasks in the process:
-
-![Customer Onboarding](docs/customer-onboarding-extended.png)
-
-* A DMN decision task that decides, if a customer order can be automatically processed or not (replacing the manual approval above)
-* Scoring the customer will now be done via an external scoring service, that has an AMQP (messaging) API. The technical details around communication via AMQP are extracted in a seperate subprocess:
-
-![Scoring](docs/customer-scoring.png)
-
+There is also an extended process model that adds some more tasks in the process: ![Customer Onboarding](docs/customer-onboarding-extended.png). You can find that in another repository on GitHub: TODO
