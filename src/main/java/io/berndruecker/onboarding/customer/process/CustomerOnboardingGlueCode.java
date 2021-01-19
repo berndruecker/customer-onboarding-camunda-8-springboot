@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Component
 public class CustomerOnboardingGlueCode {
@@ -46,4 +47,15 @@ public class CustomerOnboardingGlueCode {
         client.newCompleteCommand(job.getKey()) //
                 .send().join();
     }
+
+    // As long as there are no user tasks yet, simulate approval
+    @ZeebeWorker(type = "userTask")
+    public void simulateUserTask(final JobClient client, final ActivatedJob job) throws IOException {
+        logger.info("Simulate that user approves");
+
+        client.newCompleteCommand(job.getKey()) //
+                .variables(Map.of("automaticProcessing", true))
+                .send().join();
+    }
+
 }

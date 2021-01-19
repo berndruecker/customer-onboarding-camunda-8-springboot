@@ -25,9 +25,13 @@ The process solution is a Maven project and contains:
 * Source code to provide the REST API for clients (using Spring Boot)
 * Java code to do the customer scoring
 * Glue code to implement the REST call to the CRM system
-* Form for the user to approve customer orders
+* Fake for CRM system providing a REST API that can be called (to allow running this example self-contained)
 
+
+Worarounds for missing features in Camunda Cloud (that are on the near term roadmap):
+* User Task & Form for the user to approve customer orders are missing, simulated by service task simply completing user tasks
+* Own DMN Worker because DMN Integration doesn#t yet work out of the box
 
 # Extended Process
 
-There is also an extended process model that adds some more tasks in the process: ![Customer Onboarding](docs/customer-onboarding-extended.png). You can find that in another repository on GitHub: TODO
+There is also an extended process model that adds some more tasks in the process: ![Customer Onboarding](docs/customer-onboarding-extended.png). You can find that in another repository on GitHub: https://github.com/berndruecker/customer-onboarding-camundacloud-springboot-extended
