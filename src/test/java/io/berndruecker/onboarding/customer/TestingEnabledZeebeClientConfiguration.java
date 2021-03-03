@@ -43,13 +43,4 @@ public class TestingEnabledZeebeClientConfiguration {
         return () -> (ZeebeClient) new TestingEnabledZeebeClientBuilderDelegate(zeebeClientBuilder).build();
     }
 
-    @Mock
-    private RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
-
-    @Bean
-    protected RabbitTemplate rabbitTemplate() {
-        return rabbitTemplate;
-    }
-
-
 }
