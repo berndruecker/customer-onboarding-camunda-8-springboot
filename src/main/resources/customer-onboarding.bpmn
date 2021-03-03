@@ -13,7 +13,7 @@
       <bpmn:outgoing>Flow_08i3f47</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_08i3f47" sourceRef="TaskScoreCustomer" targetRef="TaskApproveCustomerOrder" />
-    <bpmn:exclusiveGateway id="GatewayOrderAccepted" name="Oder accepted?">
+    <bpmn:exclusiveGateway id="GatewayOrderAccepted" name="Order accepted?">
       <bpmn:incoming>Flow_0ibd51o</bpmn:incoming>
       <bpmn:outgoing>SequenceFlowOrderAcceptedNo</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlowOrderAcceptedYes</bpmn:outgoing>
@@ -22,10 +22,10 @@
     <bpmn:endEvent id="EndEventRejected" name="Customer order rejected">
       <bpmn:incoming>SequenceFlowOrderAcceptedNo</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedNo" name="no" sourceRef="GatewayOrderAccepted" targetRef="EndEventRejected">
+    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedNo" name="No" sourceRef="GatewayOrderAccepted" targetRef="EndEventRejected">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing = false)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedYes" name="yes" sourceRef="GatewayOrderAccepted" targetRef="TaskCreateCustomerInCrm">
+    <bpmn:sequenceFlow id="SequenceFlowOrderAcceptedYes" name="Yes" sourceRef="GatewayOrderAccepted" targetRef="TaskCreateCustomerInCrm">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing = true)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEventProcessed" name="Customer order processed">
@@ -68,7 +68,7 @@
         <di:waypoint x="620" y="232" />
         <di:waypoint x="620" y="302" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="629" y="264" width="13" height="14" />
+          <dc:Bounds x="628" y="264" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ibd51o_di" bpmnElement="Flow_0ibd51o">
@@ -95,7 +95,7 @@
       <bpmndi:BPMNShape id="Gateway_19ecd5n_di" bpmnElement="GatewayOrderAccepted" isMarkerVisible="true">
         <dc:Bounds x="595" y="182" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="580" y="158" width="79" height="14" />
+          <dc:Bounds x="579" y="158" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0x3ownm_di" bpmnElement="EndEventRejected">
