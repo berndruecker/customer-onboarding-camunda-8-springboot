@@ -1,7 +1,6 @@
 package io.berndruecker.onboarding.customer.rest;
 
 import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.api.response.WorkflowInstanceEvent;
 import io.zeebe.spring.client.EnableZeebeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

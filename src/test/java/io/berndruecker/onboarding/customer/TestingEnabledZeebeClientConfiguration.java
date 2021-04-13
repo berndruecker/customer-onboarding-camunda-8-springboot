@@ -11,7 +11,6 @@ import io.zeebe.spring.client.ZeebeClientObjectFactory;
 import io.zeebe.spring.client.bean.value.factory.ReadAnnotationValueConfiguration;
 import io.zeebe.spring.client.config.processor.PostProcessorConfiguration;
 import org.mockito.Mock;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
