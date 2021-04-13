@@ -1,5 +1,6 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
+import io.zeebe.client.api.worker.BackoffSupplier;
 import io.zeebe.client.api.worker.JobHandler;
 import io.zeebe.client.api.worker.JobWorker;
 import io.zeebe.client.api.worker.JobWorkerBuilderStep1;
@@ -73,6 +74,12 @@ public class TestingEnabledJobWorkerBuilderDelegate implements JobWorkerBuilderS
     @Override
     public JobWorkerBuilderStep3 fetchVariables(String... fetchVariables) {
         delegate.fetchVariables(fetchVariables);
+        return this;
+    }
+
+    @Override
+    public JobWorkerBuilderStep3 backoffSupplier(BackoffSupplier backoffSupplier) {
+        delegate.backoffSupplier(backoffSupplier);
         return this;
     }
 

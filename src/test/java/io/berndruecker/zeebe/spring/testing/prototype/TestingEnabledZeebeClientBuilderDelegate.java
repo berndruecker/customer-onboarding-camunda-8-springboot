@@ -5,6 +5,7 @@ import io.zeebe.client.CredentialsProvider;
 import io.zeebe.client.ZeebeClient;
 import io.zeebe.client.ZeebeClientBuilder;
 import io.zeebe.client.ZeebeClientConfiguration;
+import io.zeebe.client.api.JsonMapper;
 import io.zeebe.client.impl.ZeebeClientBuilderImpl;
 
 import java.time.Duration;
@@ -105,6 +106,12 @@ public class TestingEnabledZeebeClientBuilderDelegate implements ZeebeClientBuil
     @Override
     public ZeebeClientBuilder withInterceptors(ClientInterceptor... interceptor) {
         delegate.withInterceptors(interceptor);
+        return this;
+    }
+
+    @Override
+    public ZeebeClientBuilder withJsonMapper(JsonMapper jsonMapper) {
+        delegate.withJsonMapper(jsonMapper);
         return this;
     }
 

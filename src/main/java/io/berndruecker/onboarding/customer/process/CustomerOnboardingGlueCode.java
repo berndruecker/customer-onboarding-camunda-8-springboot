@@ -48,14 +48,5 @@ public class CustomerOnboardingGlueCode {
                 .send().join();
     }
 
-    // As long as there are no user tasks yet, simulate approval
-    @ZeebeWorker(type = "userTask")
-    public void simulateUserTask(final JobClient client, final ActivatedJob job) throws IOException {
-        logger.info("Simulate that user approves");
-
-        client.newCompleteCommand(job.getKey()) //
-                .variables(Map.of("automaticProcessing", true))
-                .send().join();
-    }
 
 }
