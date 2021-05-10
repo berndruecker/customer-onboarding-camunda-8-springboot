@@ -1,10 +1,10 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
-import io.zeebe.client.api.ZeebeFuture;
-import io.zeebe.client.api.command.CreateProcessInstanceCommandStep1;
-import io.zeebe.client.api.command.FinalCommandStep;
-import io.zeebe.client.api.response.ProcessInstanceEvent;
-import io.zeebe.client.impl.command.CreateProcessInstanceCommandImpl;
+import io.camunda.zeebe.client.api.ZeebeFuture;
+import io.camunda.zeebe.client.api.command.CreateProcessInstanceCommandStep1;
+import io.camunda.zeebe.client.api.command.FinalCommandStep;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.client.impl.command.CreateProcessInstanceCommandImpl;
 
 import java.io.InputStream;
 import java.time.Duration;

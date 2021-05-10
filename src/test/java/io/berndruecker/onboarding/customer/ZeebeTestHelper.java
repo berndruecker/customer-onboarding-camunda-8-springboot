@@ -2,8 +2,8 @@ package io.berndruecker.onboarding.customer;
 
 import io.berndruecker.zeebe.spring.testing.prototype.RecordedJob;
 import io.berndruecker.zeebe.spring.testing.prototype.ZeebeTestRecorder;
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package io.berndruecker.onboarding.customer.fakes;
 
 import io.berndruecker.onboarding.customer.rest.CustomerOnboardingRestController;
-import io.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.ZeebeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

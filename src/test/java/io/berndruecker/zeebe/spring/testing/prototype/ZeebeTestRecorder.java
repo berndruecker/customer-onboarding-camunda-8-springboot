@@ -1,7 +1,7 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
-import io.zeebe.client.api.ZeebeFuture;
-import io.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.client.api.ZeebeFuture;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 
 import javax.annotation.meta.When;
 import java.time.Duration;

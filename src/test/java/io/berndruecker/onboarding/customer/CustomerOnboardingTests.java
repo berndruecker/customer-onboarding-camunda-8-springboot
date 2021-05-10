@@ -2,7 +2,7 @@ package io.berndruecker.onboarding.customer;
 
 import io.berndruecker.onboarding.customer.rest.CustomerOnboardingRestController;
 import io.berndruecker.zeebe.spring.testing.prototype.RecordedJob;
-import io.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

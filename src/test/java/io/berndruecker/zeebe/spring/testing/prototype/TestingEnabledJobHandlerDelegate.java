@@ -1,8 +1,8 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
-import io.zeebe.client.api.response.ActivatedJob;
-import io.zeebe.client.api.worker.JobClient;
-import io.zeebe.client.api.worker.JobHandler;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.client.api.worker.JobClient;
+import io.camunda.zeebe.client.api.worker.JobHandler;
 
 public class TestingEnabledJobHandlerDelegate implements JobHandler {
 
