@@ -10,47 +10,59 @@ This following stack is used:
 
 # Under Construction Warning
 
-This example is still under construction (as we are still approaching Camunda Cloud GA), so it might not work as expected out-of-the-box for you just yet.
+This example contains some workarounds for for features missing in Camunda Cloud (they are on the near term roadmap):
 
-It also contains some workarounds for for features missing in Camunda Cloud (but that are on the near term roadmap):
+* A custom form for the user task to approve customer orders is not yet designed, using the generic form in the tasklist
+* The project implements a bespoke DMN Worker because the DMN integration is not yet out-of-the-box
+* Automated unit tests are not yet implemented
 
-* User Task & Form for the user to approve customer orders are missing, simulated by service task simply completing user tasks
-* Own DMN Worker because DMN Integration doesn#t yet work out of the box
+# Intro
 
-# Into
-
-The simple process is meant to get started with process automation, workflow engines and BPMN:
+This simple onboarding process is meant to get started with process automation, workflow engines and BPMN:
 
 ![Customer Onboarding](docs/customer-onboarding-simple.png)
 
 The process model contains three tasks:
 
-* A service task that executes Java Code to score customers
+* A service task that executes Java Code to score customers (using the stateless Camunda DMN engine)
 * A user task so that humans can approve customer orders (or not)
 * A service task that executes glue code to call the REST API of a CRM system
 
 The process solution is a Maven project and contains:
 
 * The onboarding process model as BPMN
-* Source code to provide the REST API for clients (using Spring Boot)
+* Source code to provide a REST endpoint for clients
 * Java code to do the customer scoring
 * Glue code to implement the REST call to the CRM system
 * Fake for CRM system providing a REST API that can be called (to allow running this example self-contained)
 
 
-# How to run
+# How To Run
 
-* Create a cluster and copy API credentials (see https://github.com/berndruecker/ticket-booking-camunda-cloud#create-camunda-cloud-cluster, TODO: IMPROVE)
+## Create Camunda Cloud Cluster
 
-* Run Spring Boot Java application, it will deploy the process model during startup
+* Login to https://camunda.io/
+* Create a new Zeebe cluster
+* Create a new set of client credentials.
+* Copy the client credentials into `src/main/resources/application.properties`
+
+
+## Run Spring Boot Java Application
+
+The application will deploy the process model during startup
 
 `mvn package exec:java`
 
-* Test by requesting a new customer onboarding 
+
+## Play
+
+You can easily use the application by requesting a new customer onboarding posting a PUT REST request to 
 
 `curl -X PUT http://localhost:8080/customer`
 
-* Check in Operate
+You can now see the process instance in Camunda Operate - linked via the Cloud Console.
+
+You can work on the user task using Camunda Tasklist, also linked via the Cloud Console.
 
 
 
