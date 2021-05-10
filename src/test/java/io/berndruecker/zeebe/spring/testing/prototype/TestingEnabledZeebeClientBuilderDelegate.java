@@ -1,11 +1,12 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
 import io.grpc.ClientInterceptor;
-import io.zeebe.client.CredentialsProvider;
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.ZeebeClientBuilder;
-import io.zeebe.client.ZeebeClientConfiguration;
-import io.zeebe.client.impl.ZeebeClientBuilderImpl;
+import io.camunda.zeebe.client.CredentialsProvider;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.ZeebeClientBuilder;
+import io.camunda.zeebe.client.ZeebeClientConfiguration;
+import io.camunda.zeebe.client.api.JsonMapper;
+import io.camunda.zeebe.client.impl.ZeebeClientBuilderImpl;
 
 import java.time.Duration;
 import java.util.Properties;
@@ -21,12 +22,6 @@ public class TestingEnabledZeebeClientBuilderDelegate implements ZeebeClientBuil
     @Override
     public ZeebeClientBuilder withProperties(Properties properties) {
         delegate.withProperties(properties);
-        return this;
-    }
-
-    @Override
-    public ZeebeClientBuilder brokerContactPoint(String contactPoint) {
-        delegate.brokerContactPoint(contactPoint);
         return this;
     }
 
@@ -105,6 +100,12 @@ public class TestingEnabledZeebeClientBuilderDelegate implements ZeebeClientBuil
     @Override
     public ZeebeClientBuilder withInterceptors(ClientInterceptor... interceptor) {
         delegate.withInterceptors(interceptor);
+        return this;
+    }
+
+    @Override
+    public ZeebeClientBuilder withJsonMapper(JsonMapper jsonMapper) {
+        delegate.withJsonMapper(jsonMapper);
         return this;
     }
 

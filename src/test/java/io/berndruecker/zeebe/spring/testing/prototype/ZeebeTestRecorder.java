@@ -1,7 +1,7 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
-import io.zeebe.client.api.ZeebeFuture;
-import io.zeebe.client.api.response.WorkflowInstanceEvent;
+import io.camunda.zeebe.client.api.ZeebeFuture;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 
 import javax.annotation.meta.When;
 import java.time.Duration;
@@ -19,7 +19,7 @@ public class ZeebeTestRecorder {
 
     private static List<Future> futures = new ArrayList<>();
 
-    private static List<WorkflowInstanceEvent> startedWorkflowInstances = new ArrayList<>();
+    private static List<ProcessInstanceEvent> startedWorkflowInstances = new ArrayList<>();
     private static List<RecordedJob> polledJobs = new ArrayList<>();
 
     private static Semaphore jobSemaphore = new Semaphore(0);
@@ -31,11 +31,11 @@ public class ZeebeTestRecorder {
         jobSemaphore = new Semaphore(0);
     }
 
-    public static Optional<RecordedJob> waiForJob(WorkflowInstanceEvent workflowInstance, String taskType) {
+    public static Optional<RecordedJob> waiForJob(ProcessInstanceEvent workflowInstance, String taskType) {
         System.out.println("WAITING FOR '" + taskType + "' in instance " + workflowInstance);
 
         Optional<RecordedJob> recordedJob = polledJobs.stream().filter( job -> //
-                    job.getJob().getType().equals(taskType) && (workflowInstance == null || job.getJob().getWorkflowInstanceKey() == workflowInstance.getWorkflowInstanceKey())) //
+                    job.getJob().getType().equals(taskType) && (workflowInstance == null || job.getJob().getProcessInstanceKey() == workflowInstance.getProcessInstanceKey())) //
             .findFirst();
 
         while (recordedJob.isEmpty()) {
@@ -49,7 +49,7 @@ public class ZeebeTestRecorder {
             }
             System.out.println("   ...done");
             recordedJob = polledJobs.stream().filter( job -> //
-                    job.getJob().getType().equals(taskType) && (workflowInstance == null || job.getJob().getWorkflowInstanceKey() == workflowInstance.getWorkflowInstanceKey())) //
+                    job.getJob().getType().equals(taskType) && (workflowInstance == null || job.getJob().getProcessInstanceKey() == workflowInstance.getProcessInstanceKey())) //
                     .findFirst();
         }
         return recordedJob;
@@ -64,10 +64,10 @@ public class ZeebeTestRecorder {
         polledJobs.remove(job);
     }
 
-    public static void add(final ZeebeFuture<WorkflowInstanceEvent> future) {
+    public static void add(final ZeebeFuture<ProcessInstanceEvent> future) {
         futures.add(future);
         executor.execute(() -> {
-            WorkflowInstanceEvent evt = future.join();
+            ProcessInstanceEvent evt = future.join();
             startedWorkflowInstances.add(evt);
         });
     }
@@ -90,7 +90,7 @@ public class ZeebeTestRecorder {
     }
 
 
-    public static List<WorkflowInstanceEvent> startedWorkflowInstances() {
+    public static List<ProcessInstanceEvent> startedWorkflowInstances() {
         return startedWorkflowInstances;
     }
 

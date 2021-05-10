@@ -40,7 +40,17 @@ The process solution is a Maven project and contains:
 
 # How to run
 
-Todo...
+* Create a cluster and copy API credentials (see https://github.com/berndruecker/ticket-booking-camunda-cloud#create-camunda-cloud-cluster, TODO: IMPROVE)
+
+* Run Spring Boot Java application, it will deploy the process model during startup
+
+`mvn package exec:java`
+
+* Test by requesting a new customer onboarding 
+
+`curl -X PUT http://localhost:8080/customer`
+
+* Check in Operate
 
 
 

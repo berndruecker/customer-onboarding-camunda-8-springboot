@@ -1,11 +1,11 @@
 package io.berndruecker.zeebe.spring.testing.prototype;
 
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.ZeebeClientConfiguration;
-import io.zeebe.client.api.command.*;
-import io.zeebe.client.api.worker.JobWorkerBuilderStep1;
-import io.zeebe.client.impl.command.CreateWorkflowInstanceCommandImpl;
-import io.zeebe.client.impl.worker.JobWorkerBuilderImpl;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.ZeebeClientConfiguration;
+import io.camunda.zeebe.client.api.command.*;
+import io.camunda.zeebe.client.api.worker.JobWorkerBuilderStep1;
+import io.camunda.zeebe.client.impl.command.CreateProcessInstanceCommandImpl;
+import io.camunda.zeebe.client.impl.worker.JobWorkerBuilderImpl;
 
 public class TestingEnabledZeebeClientDelegate implements ZeebeClient {
 
@@ -31,17 +31,17 @@ public class TestingEnabledZeebeClientDelegate implements ZeebeClient {
     }
 
     @Override
-    public DeployWorkflowCommandStep1 newDeployCommand() {
+    public DeployProcessCommandStep1 newDeployCommand() {
         return client.newDeployCommand();
     }
 
     @Override
-    public CreateWorkflowInstanceCommandStep1 newCreateInstanceCommand() {
-        return new TestingEnabledCreateWorkflowInstanceCommandDelegate( (CreateWorkflowInstanceCommandImpl)client.newCreateInstanceCommand() );
+    public CreateProcessInstanceCommandStep1 newCreateInstanceCommand() {
+        return new TestingEnabledCreateWorkflowInstanceCommandDelegate( (CreateProcessInstanceCommandImpl)client.newCreateInstanceCommand() );
     }
 
     @Override
-    public CancelWorkflowInstanceCommandStep1 newCancelInstanceCommand(long workflowInstanceKey) {
+    public CancelProcessInstanceCommandStep1 newCancelInstanceCommand(long workflowInstanceKey) {
         return client.newCancelInstanceCommand(workflowInstanceKey);
     }
 

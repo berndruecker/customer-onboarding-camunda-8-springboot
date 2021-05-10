@@ -1,8 +1,8 @@
 package io.berndruecker.onboarding.customer.process;
 
-import io.zeebe.client.api.response.ActivatedJob;
-import io.zeebe.client.api.worker.JobClient;
-import io.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.client.api.worker.JobClient;
+import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +48,5 @@ public class CustomerOnboardingGlueCode {
                 .send().join();
     }
 
-    // As long as there are no user tasks yet, simulate approval
-    @ZeebeWorker(type = "userTask")
-    public void simulateUserTask(final JobClient client, final ActivatedJob job) throws IOException {
-        logger.info("Simulate that user approves");
-
-        client.newCompleteCommand(job.getKey()) //
-                .variables(Map.of("automaticProcessing", true))
-                .send().join();
-    }
 
 }

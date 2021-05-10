@@ -1,7 +1,7 @@
 package io.berndruecker.onboarding.customer.rest;
 
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.spring.client.EnableZeebeClient;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.spring.client.EnableZeebeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

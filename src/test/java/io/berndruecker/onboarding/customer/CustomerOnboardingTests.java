@@ -2,7 +2,7 @@ package io.berndruecker.onboarding.customer;
 
 import io.berndruecker.onboarding.customer.rest.CustomerOnboardingRestController;
 import io.berndruecker.zeebe.spring.testing.prototype.RecordedJob;
-import io.zeebe.client.api.response.WorkflowInstanceEvent;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,7 +65,7 @@ class CustomerOnboardingTests {
 		customerOnboardingRest.onboardCustomer();
 
 		// assert that a process was started
-		WorkflowInstanceEvent workflowInstance = test.assertProcessInstanceStarted();
+		ProcessInstanceEvent workflowInstance = test.assertProcessInstanceStarted();
 
 		// Do Scoring
 		RecordedJob job = test.assertAndExecuteJob(null, "SendScoringRequest");

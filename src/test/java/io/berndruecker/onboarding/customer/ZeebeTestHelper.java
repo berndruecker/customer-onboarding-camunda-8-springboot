@@ -2,14 +2,13 @@ package io.berndruecker.onboarding.customer;
 
 import io.berndruecker.zeebe.spring.testing.prototype.RecordedJob;
 import io.berndruecker.zeebe.spring.testing.prototype.ZeebeTestRecorder;
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.api.response.WorkflowInstanceEvent;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Component
@@ -22,7 +21,7 @@ public class ZeebeTestHelper {
         ZeebeTestRecorder.reset();
     }
 
-    public RecordedJob assertAndExecuteJob(WorkflowInstanceEvent workflowInstance, String taskType) throws Exception {
+    public RecordedJob assertAndExecuteJob(ProcessInstanceEvent workflowInstance, String taskType) throws Exception {
         // TODO: WAIT FOR AT LEAST ONE JOB TO ARRIVE IN A CERTAIN TIMEFRAME
         Optional<RecordedJob> recordedJob = ZeebeTestRecorder.waiForJob(workflowInstance, taskType);
 
@@ -36,7 +35,7 @@ public class ZeebeTestHelper {
         return job;
     }
 
-    public WorkflowInstanceEvent assertProcessInstanceStarted() {
+    public ProcessInstanceEvent assertProcessInstanceStarted() {
         ZeebeTestRecorder.waitForOngoingWork();
 
         assertTrue( ZeebeTestRecorder.startedWorkflowInstances().size() > 0 );
