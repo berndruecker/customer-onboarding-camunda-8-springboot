@@ -2,6 +2,8 @@
 
 *Process solution example for customer onboarding as used in the OReilly book [Practical Process Automation](https://processautomationbook.com/).*
 
+![Customer Onboarding](docs/customer-onboarding-simple.png)
+
 This following stack is used:
 
 * Camunda Cloud
@@ -18,9 +20,7 @@ This example contains some workarounds for for features missing in Camunda Cloud
 
 # Intro
 
-This simple onboarding process is meant to get started with process automation, workflow engines and BPMN:
-
-![Customer Onboarding](docs/customer-onboarding-simple.png)
+This simple onboarding process is meant to get started with process automation, workflow engines and BPMN.
 
 The process model contains three tasks:
 
@@ -38,7 +38,7 @@ The process solution is a Maven project and contains:
 
 
 # How To Run
-https://youtu.be/
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=QUB0dSBBMPM" target="_blank"><img src="http://img.youtube.com/vi/QUB0dSBBMPM/0.jpg" alt="Walkthrough" width="240" height="180" border="10" /></a>
 
 ## Create Camunda Cloud Cluster
