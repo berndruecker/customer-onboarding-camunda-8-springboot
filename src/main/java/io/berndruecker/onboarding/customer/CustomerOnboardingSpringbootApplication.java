@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableZeebeClient
-@ZeebeDeployment(classPathResources = {"customer-onboarding.bpmn"})
+@ZeebeDeployment(resources = "classpath:customer-onboarding.bpmn")
 public class CustomerOnboardingSpringbootApplication {
 
 	public static void main(String[] args) {
