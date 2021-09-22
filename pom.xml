@@ -46,6 +46,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- for simple starter website -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.6.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -54,7 +60,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>              
+                <configuration>                         
+    				  <mainClass> io.berndruecker.onboarding.customer.CustomerOnboardingSpringbootApplication</mainClass>
+                </configuration>
+            </plugin>
+		</plugins>		
 	</build>
 
 </project>

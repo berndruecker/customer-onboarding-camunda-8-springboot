@@ -1,0 +1,26 @@
+<html>
+
+<body>
+  <h1>Awesome website that allows to hand in new customer orders</h1>
+
+  <button onclick="submitNewCustomerOrder()">Submit a new customer order</button>
+  
+  <div id="thanks"></div>
+</body>
+
+	<script type="text/javascript">
+    var count = 0;
+		function submitNewCustomerOrder() {
+			 $.ajax({
+              url: "./customer",
+              type: "put",
+              data: {}
+          }).done(function(result) {
+            count = count + 1;
+            $('#thanks').html('Customer order successfuly submitted. #' + count);
+          })
+		}
+	</script>
+  <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+
+</html>
