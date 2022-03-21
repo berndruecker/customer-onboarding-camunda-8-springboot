@@ -24,35 +24,22 @@ public class CustomerOnboardingGlueCode {
     @Autowired
     private RestTemplate restTemplate;
 
-
-
-    
-    @ZeebeWorker(type = "addCustomerToCrm")
-    public void addCustomerToCrmViaREST(final JobClient client, final ActivatedJob job) throws IOException {
+    @ZeebeWorker(type = "addCustomerToCrm", autoComplete = true)
+    public void addCustomerToCrmViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to CRM via REST [" + job + "]");
 
         // call rest API
         String request = "someData";
         restTemplate.put(ENDPOINT_CRM, request);
-
-        client.newCompleteCommand(job.getKey()) //
-                .send().join();
     }
 
-
-
-
-    @ZeebeWorker(type = "addCustomerToBilling")
-    public void addCustomerToBillingViaREST(final JobClient client, final ActivatedJob job) throws IOException {
+    @ZeebeWorker(type = "addCustomerToBilling", autoComplete = true)
+    public void addCustomerToBillingViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to Billing via REST [" + job + "]");
 
         // call rest API
         String request = "SomeData";
         restTemplate.put(ENDPOINT_BILLING, request);
-
-        client.newCompleteCommand(job.getKey()) //
-                .send().join();
     }
-
 
 }
