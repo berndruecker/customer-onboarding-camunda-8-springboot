@@ -23,9 +23,4 @@ public class CrmServiceRestController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/billing/customer")
-    public ResponseEntity<String> addCustomerToBillingFake(ServerWebExchange exchange) {
-        logger.info("Billing REST API called");
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 }

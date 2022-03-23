@@ -17,7 +17,6 @@ public class CustomerOnboardingGlueCode {
 
     // This would be of course injected and depends on the environment. Hard coded for now
     public static String ENDPOINT_CRM = "http://localhost:8080/crm/customer";
-    public static String ENDPOINT_BILLING = "http://localhost:8080/billing/customer";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -29,15 +28,6 @@ public class CustomerOnboardingGlueCode {
         // call rest API
         String request = "someData";
         restTemplate.put(ENDPOINT_CRM, request);
-    }
-
-    @ZeebeWorker(type = "addCustomerToBilling", autoComplete = true)
-    public void addCustomerToBillingViaREST(final ActivatedJob job) throws IOException {
-        logger.info("Add customer to Billing via REST [" + job + "]");
-
-        // call rest API
-        String request = "SomeData";
-        restTemplate.put(ENDPOINT_BILLING, request);
     }
 
 }
