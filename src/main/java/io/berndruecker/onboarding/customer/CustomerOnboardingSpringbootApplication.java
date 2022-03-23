@@ -16,9 +16,5 @@ public class CustomerOnboardingSpringbootApplication {
 		SpringApplication.run(CustomerOnboardingSpringbootApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
 
 }

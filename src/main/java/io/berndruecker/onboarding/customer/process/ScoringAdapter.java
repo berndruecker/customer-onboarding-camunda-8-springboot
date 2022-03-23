@@ -13,10 +13,10 @@ import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 @Component
 public class ScoringAdapter {
 
-    Logger logger = LoggerFactory.getLogger(ScoringAdapter.class);
+    private static Logger logger = LoggerFactory.getLogger(ScoringAdapter.class);
 
     @ZeebeWorker(type = "scoreCustomer", autoComplete = true)
-    public void scoreCustomer() throws IOException {
+    public void scoreCustomer() {
         logger.info("score...");
     }
 

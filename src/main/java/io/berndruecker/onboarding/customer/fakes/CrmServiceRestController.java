@@ -18,8 +18,14 @@ public class CrmServiceRestController {
     private Logger logger = LoggerFactory.getLogger(CustomerOnboardingRestController.class);
 
     @PutMapping("/crm/customer")
-    public ResponseEntity<String> onboardCustomer(ServerWebExchange exchange) {
-        return ResponseEntity.status(HttpStatus.OK).build(); // add body?
+    public ResponseEntity<String> addCustomerToCrmFake(ServerWebExchange exchange) {
+        logger.info("CRM REST API called");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PutMapping("/billing/customer")
+    public ResponseEntity<String> addCustomerToBillingFake(ServerWebExchange exchange) {
+        logger.info("Billing REST API called");
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

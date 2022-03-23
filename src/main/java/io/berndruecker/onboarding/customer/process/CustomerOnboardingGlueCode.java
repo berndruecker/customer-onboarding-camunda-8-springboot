@@ -1,21 +1,19 @@
 package io.berndruecker.onboarding.customer.process;
 
-import java.io.IOException;
-
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import java.io.IOException;
 
 @Component
 public class CustomerOnboardingGlueCode {
 
-    Logger logger = LoggerFactory.getLogger(CustomerOnboardingGlueCode.class);
+    private static Logger logger = LoggerFactory.getLogger(CustomerOnboardingGlueCode.class);
 
     // This would be of course injected and depends on the environment. Hard coded for now
     public static String ENDPOINT_CRM = "http://localhost:8080/crm/customer";
