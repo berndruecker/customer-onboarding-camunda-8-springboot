@@ -6,17 +6,16 @@
 
 This following stack is used:
 
-* Camunda Cloud
+* Camunda Platform 8
 * Java
 * Spring Boot
 
-# Under Construction Warning
+# Todos
 
-This example contains some workarounds for for features missing in Camunda Cloud (they are on the near term roadmap):
+There are some things still to be done in this example:
 
-* A custom form for the user task to approve customer orders is not yet designed, using the generic form in the tasklist
-* The project implements a bespoke DMN Worker because the DMN integration is not yet out-of-the-box
-* Automated unit tests are not yet implemented
+* A custom form for the user task to approve customer orders is not yet designed (it is using the generic form in the tasklist instead)
+* Automated JUnit tests need to be added
 
 # Intro
 
@@ -41,10 +40,12 @@ The process solution is a Maven project and contains:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=QUB0dSBBMPM" target="_blank"><img src="http://img.youtube.com/vi/QUB0dSBBMPM/0.jpg" alt="Walkthrough" width="240" height="180" border="10" /></a>
 
-## Create Camunda Cloud Cluster
+## Create Camunda Platform 8 Cluster
+
+The easiest way to try out Camunda is to create a cluster in the SaaS environment:
 
 * Login to https://camunda.io/ (you can create an account on the fly)
-* Create a new Zeebe cluster (any type of cluster will do)
+* Create a new cluster
 * Create a new set of API client credentials
 * Copy the client credentials into `src/main/resources/application.properties`
 
