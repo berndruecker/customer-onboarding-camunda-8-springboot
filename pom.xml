@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.berndruecker</groupId>
-	<artifactId>customer-onboarding-camundacloud-springboot</artifactId>
+	<artifactId>customer-onboarding-camunda-8-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<description>Customer Onboarding Example Using Camunda Cloud and Spring Boot</description>
+	<description>Customer Onboarding Example Using Camunda 8 and Spring Boot</description>
 
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
