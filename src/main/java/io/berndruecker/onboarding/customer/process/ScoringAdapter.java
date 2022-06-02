@@ -1,16 +1,12 @@
 package io.berndruecker.onboarding.customer.process;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
+import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class ScoringAdapter {
