@@ -10,13 +10,6 @@ This following stack is used:
 * Java
 * Spring Boot
 
-# Todos
-
-There are some things still to be done in this example:
-
-* A custom form for the user task to approve customer orders is not yet designed (it is using the generic form in the tasklist instead)
-* Automated JUnit tests need to be added
-
 # Intro
 
 This simple onboarding process is meant to get started with process automation, workflow engines and BPMN.

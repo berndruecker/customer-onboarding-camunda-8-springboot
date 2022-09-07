@@ -13,7 +13,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring.boot.version>2.6.7</spring.boot.version>
-		<zeebe.version>8.0.5</zeebe.version>
+		<zeebe.version>8.0.8</zeebe.version>
 	</properties>
 
 	<dependencies>
@@ -73,7 +73,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>              
                 <configuration>                         
-    				  <mainClass> io.berndruecker.onboarding.customer.CustomerOnboardingSpringbootApplication</mainClass>
+    				  <mainClass>io.berndruecker.onboarding.customer.CustomerOnboardingSpringbootApplication</mainClass>
                 </configuration>
             </plugin>
 		</plugins>		
