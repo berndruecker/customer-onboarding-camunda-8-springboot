@@ -48,7 +48,7 @@
     <bpmn:startEvent id="StartEventCustomerOnboardingSimple" name="Customer order received">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
-          <zeebe:output source="=&#34;Hooray - a new bank account has been opened! _&#34; + now()" target="tweetContent" />
+          <zeebe:output source="=&#34;Hooray - a new bank account has been opened! _&#34; + string(now())" target="tweetContent" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0ysyrkd</bpmn:outgoing>
