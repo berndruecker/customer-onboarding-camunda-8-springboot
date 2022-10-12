@@ -1,7 +1,7 @@
 package io.berndruecker.onboarding.customer.process;
 
 import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class CustomerOnboardingGlueCode {
     @Autowired
     private RestTemplate restTemplate;
 
-    @ZeebeWorker(type = "addCustomerToCrm", autoComplete = true)
+    @JobWorker(type = "addCustomerToCrm")
     public void addCustomerToCrmViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to CRM via REST [" + job + "]");
 

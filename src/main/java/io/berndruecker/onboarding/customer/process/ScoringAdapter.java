@@ -1,6 +1,6 @@
 package io.berndruecker.onboarding.customer.process;
 
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class ScoringAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(ScoringAdapter.class);
 
-    @ZeebeWorker(type = "scoreCustomer", autoComplete = true)
+    @JobWorker
     public Map<String, Object> scoreCustomer() {
         HashMap<String, Object> resultVariables = new HashMap<>();
 
