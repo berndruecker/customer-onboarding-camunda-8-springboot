@@ -1,9 +1,11 @@
 <html>
 
 <body>
-  <h1>Awesome website that allows to hand in new customer orders</h1>
+  <h1>Awesome website that allows to open a new bank account</h1>
 
-  <button onclick="submitNewCustomerOrder()">Submit a new customer order</button>
+  <p>Typically, some data would be collected here...</p>
+
+  <button onclick="submitNewCustomerOrder()">Open bank account</button>
   
   <div id="thanks"></div>
 </body>
@@ -17,7 +19,7 @@
               data: {}
           }).done(function(result) {
             count = count + 1;
-            $('#thanks').html('Customer order successfuly submitted. #' + count);
+            $('#thanks').html('Bank account application successfuly submitted. #' + count);
           })
 		}
 	</script>

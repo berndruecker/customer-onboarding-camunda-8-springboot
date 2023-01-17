@@ -7,8 +7,8 @@
 This following stack is used:
 
 * Camunda Platform 8
-* Java
-* Spring Boot
+* Java 17
+* Spring Boot 3
 
 # Intro
 
