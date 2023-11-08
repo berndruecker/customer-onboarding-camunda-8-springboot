@@ -1,14 +1,12 @@
 package io.berndruecker.onboarding.customer.process;
 
-import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
+import io.camunda.zeebe.spring.client.annotation.Variable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
 
 @Component
 public class CustomerOnboardingGlueCode {
@@ -22,10 +20,9 @@ public class CustomerOnboardingGlueCode {
     private RestTemplate restTemplate;
 
     @JobWorker(type = "addCustomerToCrm")
-    public void addCustomerToCrmViaREST(final ActivatedJob job) throws IOException {
-        logger.info("Add customer to CRM via REST [" + job + "]");
+    public void addCustomerToCrm(@Variable String customerName) {
+        System.out.println("Adding customer to CRM via REST: " + customerName);
 
-        // call rest API
         String request = "someData";
         restTemplate.put(ENDPOINT_CRM, request);
     }

@@ -10,10 +10,10 @@
 	<description>Customer Onboarding Example Using Camunda 8 and Spring Boot</description>
 
 	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<spring.boot.version>3.0.5</spring.boot.version>
-		<zeebe.version>8.2.1</zeebe.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<spring.boot.version>3.1.5</spring.boot.version>
+		<zeebe.version>8.3.0</zeebe.version>
 	</properties>
 
 	<dependencyManagement>
@@ -57,7 +57,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.camunda.spring</groupId>
-			<artifactId>spring-boot-starter-camunda-test-testcontainer</artifactId>
+			<artifactId>spring-boot-starter-camunda-test</artifactId>
 			<version>${zeebe.version}</version>
 			<scope>test</scope>
 		</dependency>
